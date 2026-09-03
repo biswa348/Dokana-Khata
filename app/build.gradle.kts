@@ -14,7 +14,7 @@ android {
         minSdk = 24
         targetSdk = 34
         versionCode = 1
-        versionName = "1.0"
+        versionName = "2.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -61,6 +61,8 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     kapt(libs.androidx.room.compiler)
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation("androidx.navigation:navigation-compose:2.7.6")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

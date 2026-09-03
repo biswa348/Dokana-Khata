@@ -26,7 +26,8 @@ fun CustomerDetailsScreen(
     var isUdhaar by remember { mutableStateOf(true) }
     val df = SimpleDateFormat("dd MMM hh:mm a", Locale.getDefault())
 
-    val balance = transactions.sumOf { if (it.isUdhaar) it.amount else -it.amount }
+    val balance = transactions.sumOf { if (it.type=="Udhar") it.amount else -it.amount}
+        Text("Total Balance: ₹$balance", style = MaterialTheme.typography.titleMedium)
 
     Column(Modifier.padding(16.dp)) {
         Text("Customer: ${customer.name}", style = MaterialTheme.typography.headlineSmall)
@@ -38,9 +39,17 @@ fun CustomerDetailsScreen(
             items(transactions) { txn ->
                 Card(Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
                     Column(Modifier.padding(12.dp)) {
-                        Text("${if (txn.isUdhaar) "Udhar" else "Jama"}: Rs. ${txn.amount}")
+                        Text("${if (txn.type=="Udhar") "Udhar" else "Jama"}: Rs. ${txn.amount}",
+                        color = if (txn.type == "Udhaar") MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary)
                         Text(txn.note)
-                        Text(df.format(Date(txn.time)), style = MaterialTheme.typography.bodySmall)
+                        Text(formatTime(txn.timestamp), style = MaterialTheme.typography.bodySmall)
+                        if (txn.note.isNotBlank()) {
+                            Text(txn.note)
+                        }
+                        Text(
+                            txn.date,
+                            style = MaterialTheme.typography.bodySmall
+                        )
                     }
                 }
             }

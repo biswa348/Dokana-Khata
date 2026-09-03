@@ -54,7 +54,7 @@ fun CustomerListScreen(
             Spacer(Modifier.height(12.dp))
             LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 items(filtered) { c ->
-                    val bal = balances[c.id] ?: 0.0
+                    val bal = c.totalBalance
                     Card(Modifier.fillMaxWidth().clickable { onCustomerClick(c) }) {
                         Row(Modifier.padding(16.dp).fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                             Column { Text(c.name, fontWeight = FontWeight.SemiBold); Text(c.phone, style = MaterialTheme.typography.bodySmall) }
